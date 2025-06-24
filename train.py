@@ -57,3 +57,18 @@ for epoch in range(epochs):
         val_images = val_images.to(device)
         preds = model(val_images)
         visualize(val_images[0], val_masks[0], preds[0])
+from matplotlib import pyplot as plt
+
+img, mask = dataset[0]
+plt.subplot(1, 2, 1)
+plt.imshow(img.permute(1, 2, 0))  # Convert from CHW to HWC
+plt.title("Input")
+
+plt.subplot(1, 2, 2)
+plt.imshow(mask.squeeze(), cmap="gray")
+plt.title("Mask")
+
+plt.show()
+torch.save(model.state_dict(), "model.pth")
+print("Model saved to model.pth")
+# Save the trained model
